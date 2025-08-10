@@ -1,0 +1,41 @@
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
+
+android {
+    namespace "com.aura"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.aura"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('aura.keystore')
+            storePassword 'aura123'
+            keyAlias 'aura'
+            keyPassword 'aura123'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    implementation "com.facebook.react:react-android"
+    implementation "com.facebook.react:hermes-android"
+    
+    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}")
+    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
+}
